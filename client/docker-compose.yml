@@ -1,0 +1,7 @@
+version: '2'
+services:
+  app-offline-frontfest:
+   build: .
+   container_name: fronfest-client
+   ports:
+    - 80:80

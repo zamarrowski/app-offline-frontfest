@@ -1,0 +1,10 @@
+CACHE MANIFEST
+
+# 2017-01-11 v 0.0.1
+
+CACHE:
+index.html
+bundle/bundle.js
+
+NETWORK:
+*
