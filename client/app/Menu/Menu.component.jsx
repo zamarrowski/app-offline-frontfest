@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import Drawer from 'material-ui/drawer';
-import MenuItem from 'material-ui/menuItem';
-import RaisedButton from 'material-ui/RaisedButton';
-import FontIcon from 'material-ui/FontIcon';
-import IconButton from 'material-ui/IconButton';
+import MenuItem from 'material-ui/menuItem'
 import AppBar from 'material-ui/AppBar'
 
 class Home extends Component {
