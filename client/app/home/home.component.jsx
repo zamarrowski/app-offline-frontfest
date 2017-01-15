@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
 
 class Home extends Component {
+
   render() {
-    return(<h1>Todo list</h1>)
+    return(
+      <div>
+        <h1>Todo list</h1>
+      </div>
+    )
   }
 }
 
