@@ -1,0 +1,15 @@
+{
+  "name": "frontfest-offline-app-server",
+  "version": "0.0.1",
+  "description": "Demo app for frontfest",
+  "main": "server.js",
+  "author": "zamarrowski",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "loggio": "^0.4.0",
+    "mongoose": "^4.7.7",
+    "morgan": "^1.7.0"
+  }
+}
