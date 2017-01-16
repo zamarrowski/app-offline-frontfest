@@ -1,0 +1,17 @@
+version: '2'
+services:
+  frontfest-server:
+   build: .
+   container_name: frontfest-server
+   ports:
+    - 8080:8080
+   links:
+    - mongodb
+   depends_on:
+    - mongodb
+
+  mongodb:
+   image: mongo:3.3
+   container_name: frontfest-mongodb
+   ports:
+    - 27017:27017
