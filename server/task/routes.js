@@ -5,7 +5,7 @@ module.exports = (express, taskModel) => {
   let router = express.Router()
 
   router.get('/', (req, res, next) => {
-    taskModel.find()
+    taskModel.find({}, {__v: 0})
     .then(tasks => res.json(tasks))
     .catch(err => next(err))
   })
