@@ -29,7 +29,6 @@ class Home extends Component {
           onRequestChange={(open) => this.setState({open})}
           >
           <MenuItem>Home</MenuItem>
-          <MenuItem>Tasks</MenuItem>
           <MenuItem>Add task</MenuItem>
         </Drawer>
       </div>
