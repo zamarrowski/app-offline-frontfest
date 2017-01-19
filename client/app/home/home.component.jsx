@@ -6,6 +6,7 @@ PouchDB.plugin(PouchDBFind)
 
 import settings from './../settings'
 import Tasks from './tasks.component.jsx'
+import AddTask from './addTask.component.jsx'
 
 class Home extends Component {
 
@@ -21,9 +22,16 @@ class Home extends Component {
     return(
       <div>
         <h3>Tasks</h3>
+        <AddTask onAddTask={this.addTask.bind(this)}></AddTask>
         <Tasks list={this.state.tasks}></Tasks>
       </div>
     )
+  }
+
+  addTask(newTask) {
+    axios.post(settings.baseService + '/task', newTask).then(response => {
+      this.getTasks()
+    })
   }
 
   componentDidMount() {
