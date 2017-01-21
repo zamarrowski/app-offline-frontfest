@@ -23,7 +23,7 @@ class Home extends Component {
       <div>
         <h3>Tasks</h3>
         <AddTask onAddTask={this.addTask.bind(this)}></AddTask>
-        <Tasks list={this.state.tasks}></Tasks>
+        <Tasks list={this.state.tasks} onRemoveTask={this.removeTask.bind(this)}></Tasks>
       </div>
     )
   }
@@ -56,6 +56,12 @@ class Home extends Component {
         tasks.push(row.doc)
       }
       this.setState({ tasks: tasks })
+    })
+  }
+
+  removeTask(task) {
+    axios.delete(settings.baseService + '/task/' + task._id).then(response => {
+      this.getTasks()
     })
   }
 }
