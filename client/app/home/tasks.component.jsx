@@ -20,11 +20,7 @@ class Tasks extends Component {
         <TableRow key={task._id}>
           <TableRowColumn>{task.name}</TableRowColumn>
           <TableRowColumn>{task.description}</TableRowColumn>
-          <TableRowColumn>{task.completed ? "Completed" : "Not completed"}</TableRowColumn>
           <TableRowColumn>
-            <FloatingActionButton mini={true}>
-              <CompletedIcon />
-            </FloatingActionButton>
             <FloatingActionButton mini={true} secondary={true} style={ removeButtonStyle } onTouchTap={this.removeTask.bind(this, task)}>
               <RemoveIcon />
             </FloatingActionButton>
@@ -41,7 +37,6 @@ class Tasks extends Component {
           <TableRow>
             <TableHeaderColumn>Name</TableHeaderColumn>
             <TableHeaderColumn>Description</TableHeaderColumn>
-            <TableHeaderColumn>Status</TableHeaderColumn>
             <TableHeaderColumn>Actions</TableHeaderColumn>
           </TableRow>
         </TableHeader>
