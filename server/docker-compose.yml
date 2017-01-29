@@ -1,0 +1,15 @@
+version: '2'
+services:
+  frontfest-server:
+   build: .
+   container_name: frontfest-server
+   volumes:
+     - .:/usr/src/app
+   ports:
+    - 8080:8080
+   depends_on:
+    - mongodb
+
+  mongodb:
+   image: mongo:3.3
+   container_name: frontfest-mongodb

@@ -8,5 +8,6 @@ RUN apt-get install -y build-essential
 COPY . /usr/share/nginx/html
 COPY mime.types /etc/nginx/
 RUN npm install
+RUN node replaceApiEndPoint.js
 RUN npm run build
 EXPOSE 80
