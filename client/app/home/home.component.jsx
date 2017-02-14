@@ -29,9 +29,15 @@ class Home extends Component {
   }
 
   addTask(newTask) {
-    axios.post(settings.baseService + '/task', newTask).then(response => {
-      this.getTasks()
-    })
+    if (window.navigator.onLine) {
+      axios.post(settings.baseService + '/task', newTask).then(response => {
+        this.getTasks()
+      })
+    } else {
+      newTask._id = String(Math.random())
+      this.tasksDB.put(newTask)
+      this.getTasksOffline()
+    }
   }
 
   componentDidMount() {
@@ -60,9 +66,17 @@ class Home extends Component {
   }
 
   removeTask(task) {
-    axios.delete(settings.baseService + '/task/' + task._id).then(response => {
-      this.getTasks()
-    })
+    if (window.navigator.onLine) {
+      axios.delete(settings.baseService + '/task/' + task._id).then(response => {
+        this.getTasks()
+      })
+    } else {
+      this.tasksDB.get(task._id).then(doc => {
+        this.tasksDB.remove(doc, result => {
+          this.getTasksOffline()
+        })
+      })
+    }
   }
 }
 
