@@ -28,6 +28,25 @@ module.exports = (express, taskModel) => {
     .catch(err => next(err))
   })
 
+  router.post('/sync', (req, res, next) => {
+    let tasks = taskModel.cleanTasks(req.body.tasks)
+    console.log(tasks);
+    if (tasks.length) {
+      taskModel.remove({})
+        .then(result => {
+          taskModel.create(tasks).then(docs => {
+            taskModel.find({}, 'name description').then(docs => {
+              res.json(docs)
+            })
+          }).catch(err => next(err))
+        })
+        .catch(err => next(err))
+    } else {
+      res.json([])
+    }
+
+  })
+
   router.put('/:id', (req, res, next) => {
     taskModel.findById(req.params.id).then(task => {
       if (task) {

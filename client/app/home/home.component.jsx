@@ -42,7 +42,7 @@ class Home extends Component {
 
   componentDidMount() {
     if (window.navigator.onLine) {
-      this.getTasks()
+      this.syncTasks()
     } else {
       this.getTasksOffline()
     }
@@ -52,6 +52,28 @@ class Home extends Component {
     axios.get(settings.baseService + '/task').then(response => {
       this.setState({ tasks: response.data })
       this.tasksDB.bulkDocs(response.data)
+    })
+  }
+
+  syncTasks() {
+    this.tasksDB.allDocs({include_docs: true}).then(response => {
+      let tasks = []
+      for (let row of response.rows) {
+        tasks.push(row.doc)
+      }
+      axios.post(settings.baseService + '/task/sync', {tasks}).then(response => {
+        this.setState({ tasks: response.data })
+        this.tasksDB.allDocs(result => {
+          let count = 0
+          if (result && result.rows.length) {
+            result.rows.map(doc => {
+              this.tasksDB.remove(doc)
+              count++
+            })
+          }
+          if (result && result.rows.length == count++) this.tasksDB.bulkDocs(response.data)
+        })
+      })
     })
   }
 
@@ -69,14 +91,19 @@ class Home extends Component {
     if (window.navigator.onLine) {
       axios.delete(settings.baseService + '/task/' + task._id).then(response => {
         this.getTasks()
+        this.removeTaskOffline(task)
       })
     } else {
-      this.tasksDB.get(task._id).then(doc => {
-        this.tasksDB.remove(doc, result => {
-          this.getTasksOffline()
-        })
-      })
+      this.removeTaskOffline(task)
     }
+  }
+
+  removeTaskOffline(task) {
+    this.tasksDB.get(task._id).then(doc => {
+      this.tasksDB.remove(doc, result => {
+        this.getTasksOffline()
+      })
+    })
   }
 }
 
