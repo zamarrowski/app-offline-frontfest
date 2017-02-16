@@ -18,7 +18,6 @@ class Tasks extends Component {
     const taskNode = this.props.list.map(task => {
       return (
         <TableRow key={task._id}>
-          <TableRowColumn>{task._id}</TableRowColumn>
           <TableRowColumn>{task.name}</TableRowColumn>
           <TableRowColumn>{task.description}</TableRowColumn>
           <TableRowColumn>
@@ -36,7 +35,6 @@ class Tasks extends Component {
           displaySelectAll={false}
           adjustForCheckbox={false}>
           <TableRow>
-            <TableHeaderColumn>ID</TableHeaderColumn>
             <TableHeaderColumn>Name</TableHeaderColumn>
             <TableHeaderColumn>Description</TableHeaderColumn>
             <TableHeaderColumn>Actions</TableHeaderColumn>
