@@ -60,19 +60,11 @@ class Home extends Component {
       let tasks = []
       for (let row of response.rows) {
         tasks.push(row.doc)
+        this.tasksDB.remove(row.doc)
       }
       axios.post(settings.baseService + '/task/sync', {tasks}).then(response => {
         this.setState({ tasks: response.data })
-        this.tasksDB.allDocs(result => {
-          let count = 0
-          if (result && result.rows.length) {
-            result.rows.map(doc => {
-              this.tasksDB.remove(doc)
-              count++
-            })
-          }
-          if (result && result.rows.length == count++) this.tasksDB.bulkDocs(response.data)
-        })
+        this.tasksDB.bulkDocs(response.data)
       })
     })
   }
